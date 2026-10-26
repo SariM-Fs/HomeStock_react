@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { userContext } from "../context/UserContext";
 import UpdateProduct from "../components/UpdateProduct";
 import { errorMessage } from "../service/errorMessage";
+import { toast } from "sonner";
 
 
 const Inventory = () => {
@@ -27,7 +28,7 @@ const Inventory = () => {
             queryClient.invalidateQueries({ queryKey: ['products'] });
         },
         onError: (err) => {
-            errorMessage(err);
+            toast.error(errorMessage(err));
         }
     });
     if (isLoading) {

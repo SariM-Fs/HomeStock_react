@@ -1,34 +1,13 @@
-import axios from "axios";
+import { api } from "./api";
 
 export const getUsersApi = async () => {
-
-    const res = await axios.get("http://localhost:3001/users", {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-    });
+    const res = await api.get("/users");
     return res.data
-
 }
 
 export const premmisionApi = async (id: number,
     permissionName: string,
     newValue: boolean) => {
-    try {
-        const res = await axios.put(
-            `http://localhost:3001/users/${id}/permissions`,
-            { [permissionName]: newValue },
-            {
-                headers:
-                    { Authorization: `Bearer ${localStorage.getItem("token")}` }
-            }
-
-        );
-        return res.data
-    }
-    catch (error) {
-        console.error("error", error);
-        throw error;
-
-    }
+    const res = await api.put(`/users/${id}/permissions`, { [permissionName]: newValue });
+    return res.data
 }

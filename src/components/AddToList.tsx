@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { userContext } from "../context/UserContext";
 import { errorMessage } from "../service/errorMessage";
+import { toast } from "sonner";
 
 
 const schema = yup.object({
@@ -52,7 +53,7 @@ const AddToList = () => {
         if (user?.role === "Admin" || user?.canAddToShoppingList)
             addProductToList.mutate(data)
         else
-            alert("אין לך הרשאה")
+            toast.warning("אין לך הרשאה")
     }
     return <form className="form-inline" onSubmit={handleSubmit(onSubmit)}>
         <select {...register("productId", { valueAsNumber: true })}>

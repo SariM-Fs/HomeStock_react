@@ -4,6 +4,7 @@ import AddToList from "../components/AddToList";
 import { useContext } from "react";
 import { userContext } from "../context/UserContext";
 import { errorMessage } from "../service/errorMessage";
+import { toast } from "sonner";
 
 
 type ItemFromList = {
@@ -38,7 +39,7 @@ const ShopList = () => {
             queryClient.invalidateQueries({ queryKey: ['items'] });
         },
         onError: (err) => {
-            alert(errorMessage(err));
+            toast.error(errorMessage(err));
         }
     });
     const markMutation = useMutation({
@@ -47,7 +48,7 @@ const ShopList = () => {
             queryClient.invalidateQueries({ queryKey: ['items'] });
         },
         onError: (err) => {
-            alert(errorMessage(err));
+            toast.error(errorMessage(err));
         }
     });
     if (isLoading) {

@@ -1,4 +1,5 @@
-import axios from "axios";
+import { api } from "./api";
+import { toast } from "sonner";
 
 export type LoginData  = {
     username: string;
@@ -15,35 +16,19 @@ type FormData = {
 };
 
 export const loginUserApi = async (data: LoginData ) => {
-
-    const res = await axios.post(
-        "http://localhost:3001/auth/login",
-        data
-    );
+    const res = await api.post("/auth/login", data);
     localStorage.setItem("token", res.data.token);
     return res.data.user
-
 };
 
 export const registerUserApi = async (data: FormData) => {
-
-    const res = await axios.post(
-        "http://localhost:3001/auth/register",
-        data
-    )
+    const res = await api.post("/auth/register", data)
     localStorage.setItem("token", res.data.token)
-    alert(`${res.data.family.code} :קוד המשפחה`)
+    toast.info(`${res.data.family.code} :קוד המשפחה`, { duration: Infinity })
     return res.data.user
-
 };
 
 export const currentUserApi = async () => {
-
-        const res = await axios.get("http://localhost:3001/auth/me", {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-        });
-        return res.data
-
+    const res = await api.get("/auth/me");
+    return res.data
 }
