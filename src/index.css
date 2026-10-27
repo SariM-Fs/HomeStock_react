@@ -183,7 +183,7 @@
   /* לוגו: אותו ריבוע ושם כמו בתפריט */
   .brand {
     background-image: var(--gradient-primary);
-    @apply mb-10 flex w-fit items-center gap-4 bg-clip-text text-[32px] font-extrabold text-transparent max-menu:mb-6;
+    @apply mb-10 flex w-fit items-center gap-4 bg-clip-text text-[32px] font-extrabold text-transparent max-menu:mx-auto max-menu:mb-6;
   }
   .brand::before {
     content: '';
@@ -191,9 +191,9 @@
     @apply size-14 flex-none rounded-[17px] bg-primary max-menu:size-12 max-menu:rounded-[15px];
   }
   .auth-intro > h2 {
-    @apply mb-9 text-[clamp(30px,4vw,52px)] leading-[1.15] font-extrabold tracking-[-1px] text-text max-menu:mb-6;
+    @apply mb-9 text-[clamp(30px,4vw,52px)] leading-[1.15] font-extrabold tracking-[-1px] text-text max-menu:hidden;
   }
-  .auth-intro > ul { @apply m-0 flex list-none flex-col gap-4 p-0; }
+  .auth-intro > ul { @apply m-0 flex list-none flex-col gap-4 p-0 max-menu:mx-auto max-menu:w-fit; }
   .auth-intro li { @apply flex items-center gap-3.5 text-lg font-medium text-text; }
   .auth-intro li::before {
     content: '';
@@ -262,6 +262,8 @@
     @apply max-tablet:end-3;
   }
   .inventory-table .edit { @apply max-tablet:end-[52px]; }
+  /* אין תוצאות לחיפוש / סינון */
+  .inventory-table .empty { @apply text-center font-normal text-muted max-tablet:basis-full; }
 
   /* ============ רשימת קניות ============ */
   .hint { @apply mb-1 self-start border-s-[3px] border-ok ps-3.5 text-sm font-semibold text-muted; }

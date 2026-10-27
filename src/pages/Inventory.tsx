@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProductApi, deleteProductApi } from "../service/productsApi"
-import type { Product } from "../types/type";
+import { Category, type Product } from "../types/type";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { userContext } from "../context/UserContext";
@@ -54,8 +54,8 @@ const Inventory = () => {
         <select className="filter" onChange={(e) => setCategory(e.target.value)}
         >
             <option value="">כל הקטגוריות</option>
-            {data?.map((item) => (
-                <option key={item.id}>{item.category}</option>
+            {Category.map((c) => (
+                <option key={c} value={c}>{c}</option>
             ))}
         </select>
         <br></br>
@@ -89,6 +89,11 @@ const Inventory = () => {
                         </tr>
                     ))
                 }
+                {filteredProducts?.length === 0 && (
+                    <tr>
+                        <td colSpan={5} className="empty">לא נמצאו מוצרים</td>
+                    </tr>
+                )}
             </tbody>
         </table>
         {(user?.role === "Admin" || user?.canUpdateQuantity) && editingId !== null && (

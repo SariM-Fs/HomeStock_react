@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { registerUserApi } from "../service/authApi";
+import { currentUserApi, registerUserApi } from "../service/authApi";
 import { useContext } from "react";
 import { userContext } from "../context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -43,8 +43,9 @@ const Register = () => {
 
     const onSubmit = async (data: FormData) => {
         try {
-            const loggedInUser = await registerUserApi(data);
-            setUser(loggedInUser);
+            await registerUserApi(data);
+            const user = await currentUserApi();
+            setUser(user);
             navigate("/", { replace: true });
 
         } catch (error) {

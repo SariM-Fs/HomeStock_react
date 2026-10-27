@@ -24,7 +24,10 @@ export const loginUserApi = async (data: LoginData ) => {
 export const registerUserApi = async (data: FormData) => {
     const res = await api.post("/auth/register", data)
     localStorage.setItem("token", res.data.token)
-    toast.info(`${res.data.family.code} :קוד המשפחה`, { duration: Infinity })
+    toast.success("נרשמת בהצלחה!", {
+        description: `קוד המשפחה: ${res.data.family.code}`,
+        duration: Infinity
+    })
     return res.data.user
 };
 
