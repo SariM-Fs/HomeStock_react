@@ -388,7 +388,8 @@
     @apply ms-2.5 inline-block w-[46px] text-start align-middle text-sm text-muted max-tablet:hidden;
   }
   td:has(> .toggle:checked)::after { content: 'מותר'; @apply text-text; }
-
+  /* מתג נעול – שורת המנהל */
+  .toggle:disabled { @apply cursor-not-allowed opacity-50; }
   /* ============ תפריט: כרטיס המשתמש ============ */
   .user-name, .user-role {
     @apply menu:order-[99] menu:truncate menu:bg-white/5 menu:ps-[70px] menu:pe-[60px] max-menu:order-10 max-menu:mt-3 max-menu:hidden;

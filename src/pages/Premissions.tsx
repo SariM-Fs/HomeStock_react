@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUsersApi, premmisionApi } from "../service/usersApi";
+import { errorMessage } from "../service/errorMessage";
+import { toast } from "sonner";
 
 
 type User = {
@@ -23,6 +25,9 @@ const Permissions = () => {
             premmisionApi(id, name, value),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: (err) => {
+            toast.error(errorMessage(err));
         }
     });
 
@@ -33,6 +38,7 @@ const Permissions = () => {
     if (error) {
         return <p>אירעה שגיאה בטעינת המשתמשים</p>;
     }
+
     return <>
         <h1>משתמשים והרשאות</h1>
         <h4>קובעים מה כל בן בית רשאי לעשות. השינוי נכנס לתוקף מיד</h4>
@@ -55,6 +61,7 @@ const Permissions = () => {
                                 className="toggle"
                                 type="checkbox"
                                 checked={users.canUpdateQuantity}
+                                disabled={users.role === "Admin"}
                                 onChange={(e) => {
                                     updatePermission.mutate({ id: users.id, name: "canUpdateQuantity", value: e.target.checked })
                                 }}
@@ -63,6 +70,7 @@ const Permissions = () => {
                                 className="toggle"
                                 type="checkbox"
                                 checked={users.canAddToShoppingList}
+                                disabled={users.role === "Admin"}
                                 onChange={(e) => {
                                     updatePermission.mutate({ id: users.id, name: "canAddToShoppingList", value: e.target.checked })
                                 }}
@@ -71,6 +79,7 @@ const Permissions = () => {
                                 className="toggle"
                                 type="checkbox"
                                 checked={users.canMarkPurchased}
+                                disabled={users.role === "Admin"}
                                 onChange={(e) => {
                                     updatePermission.mutate({ id: users.id, name: "canMarkPurchased", value: e.target.checked })
                                 }}
